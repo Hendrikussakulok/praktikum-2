@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <title>Galaxian - Classic Arcade</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div id="game-wrapper">
+
+        <!-- ================= GAME ================= -->
+        <div id="game-container">
+
+            <!-- HUD -->
+            <div id="hud">
+
+                <span id="score-display">
+                    SCORE: 0000
+                </span>
+
+                <span id="wave-display">
+                    WAVE: 1
+                </span>
+
+                <span id="hi-display">
+                    HI: 0000
+                </span>
+
+                <span id="lives-display">
+                    ♥ 3
+                </span>
+
+            </div>
+
+            <!-- CANVAS -->
+            <canvas
+                id="gameCanvas"
+                width="500"
+                height="600"
+            ></canvas>
+
+            <!-- MENU / GAME OVER -->
+            <div id="overlay">
+
+                <div class="scanlines"></div>
+
+                <h1 id="overlay-title">
+                    GALAXIAN
+                </h1>
+
+                <h2 id="overlay-subtitle">
+                    CLASSIC ARCADE
+                </h2>
+
+                <p id="overlay-text">
+                    Tembak alien sebelum mereka
+                    mencapai Anda!
+                </p>
+
+                <button
+                    id="start-btn"
+                    type="button"
+                >
+                    START GAME
+                </button>
+
+                <div class="instructions">
+                    <span>← →</span>
+                    <span>MOVE</span>
+                    <span>SPACE</span>
+                    <span>FIRE</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= TOUCH CONTROLS ================= -->
+
+        <div id="touch-controls">
+
+            <div class="dpad">
+
+                <button
+                    class="ctrl-btn"
+                    id="btn-left"
+                    type="button"
+                >
+                    ◀
+                </button>
+
+                <button
+                    class="ctrl-btn"
+                    id="btn-right"
+                    type="button"
+                >
+                    ▶
+                </button>
+
+            </div>
+
+            <button
+                class="ctrl-btn fire-btn"
+                id="btn-fire"
+                type="button"
+            >
+                FIRE
+            </button>
+
+        </div>
+
+        <div id="mobile-help">
+            GUNAKAN TOMBOL UNTUK BERGERAK & MENEMBAK
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="./game.js"></script>
+
+</body>
+</html>

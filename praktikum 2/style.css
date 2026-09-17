@@ -1,0 +1,544 @@
+/* ==========================================
+   GALAXIAN - CLASSIC ARCADE
+   RETRO NEON STYLE
+   ========================================== */
+
+@import url(
+    'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'
+);
+
+/* ==========================================
+   RESET
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    color: #fff;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ==========================================
+   WRAPPER
+   ========================================== */
+
+#game-wrapper {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #07120c 0%,
+            #020502 45%,
+            #000 80%
+        );
+}
+
+/* ==========================================
+   GAME CONTAINER
+   ========================================== */
+
+#game-container {
+    position: relative;
+
+    width: min(500px, 100%);
+
+    border: 2px solid #39ff6a;
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    background: #000;
+
+    box-shadow:
+        0 0 8px #39ff6a,
+        0 0 20px rgba(57, 255, 106, 0.65),
+        0 0 45px rgba(57, 255, 106, 0.25),
+        inset 0 0 20px rgba(57, 255, 106, 0.12);
+}
+
+/* ==========================================
+   HUD
+   ========================================== */
+
+#hud {
+    position: relative;
+    z-index: 20;
+
+    width: 100%;
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    padding: 8px 12px;
+
+    background: #000;
+
+    border-bottom: 2px solid #39ff6a;
+
+    color: #39ff6a;
+
+    font-size: 9px;
+
+    text-shadow:
+        0 0 5px #39ff6a,
+        0 0 10px rgba(57, 255, 106, 0.7);
+
+    white-space: nowrap;
+}
+
+#lives-display {
+    color: #ff2e5b;
+
+    text-shadow:
+        0 0 5px #ff2e5b,
+        0 0 10px rgba(255, 46, 91, 0.7);
+}
+
+/* ==========================================
+   CANVAS
+   ========================================== */
+
+#gameCanvas {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    background: #02030a;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* ==========================================
+   OVERLAY
+   ========================================== */
+
+#overlay {
+    position: absolute;
+
+    top: 48px;
+    left: 0;
+
+    width: 100%;
+    height: calc(100% - 48px);
+
+    z-index: 30;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 16px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(5, 15, 10, 0.90),
+            rgba(0, 0, 0, 0.96)
+        );
+}
+
+/* ==========================================
+   SCANLINES
+   ========================================== */
+
+.scanlines {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.025) 0px,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+/* ==========================================
+   TITLE
+   ========================================== */
+
+#overlay-title {
+    position: relative;
+
+    font-size: clamp(22px, 7vw, 34px);
+
+    color: #ffd93d;
+
+    letter-spacing: 3px;
+
+    text-shadow:
+        0 0 5px #ffd93d,
+        0 0 12px #ffd93d,
+        0 0 25px rgba(255, 217, 61, 0.8);
+}
+
+#overlay-subtitle {
+    position: relative;
+
+    font-size: clamp(10px, 3vw, 14px);
+
+    color: #00e5ff;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 6px #00e5ff,
+        0 0 15px rgba(0, 229, 255, 0.8);
+}
+
+#overlay-text {
+    position: relative;
+
+    max-width: 310px;
+
+    color: #fff;
+
+    font-size: 9px;
+
+    line-height: 1.8;
+
+    opacity: 0.9;
+}
+
+/* ==========================================
+   START BUTTON
+   ========================================== */
+
+#start-btn {
+    position: relative;
+    z-index: 40;
+
+    margin-top: 8px;
+
+    padding: 16px 30px;
+
+    font-family: 'Press Start 2P', monospace;
+
+    font-size: 10px;
+
+    color: #39ff6a;
+
+    background: rgba(57, 255, 106, 0.04);
+
+    border: 2px solid #39ff6a;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    text-shadow:
+        0 0 6px #39ff6a;
+
+    box-shadow:
+        0 0 8px rgba(57, 255, 106, 0.5),
+        inset 0 0 8px rgba(57, 255, 106, 0.05);
+
+    transition:
+        background 0.15s,
+        color 0.15s,
+        box-shadow 0.15s,
+        transform 0.1s;
+}
+
+#start-btn:hover {
+    background: #39ff6a;
+
+    color: #000;
+
+    text-shadow: none;
+
+    box-shadow:
+        0 0 10px #39ff6a,
+        0 0 25px #39ff6a;
+}
+
+#start-btn:active {
+    transform: scale(0.96);
+
+    background: #39ff6a;
+
+    color: #000;
+}
+
+/* ==========================================
+   INSTRUCTIONS
+   ========================================== */
+
+.instructions {
+    position: relative;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 8px 14px;
+
+    margin-top: 4px;
+
+    color: #777;
+
+    font-size: 6px;
+
+    line-height: 1.5;
+}
+
+.instructions span:nth-child(1),
+.instructions span:nth-child(3) {
+    color: #39ff6a;
+}
+
+/* ==========================================
+   TOUCH CONTROLS
+   ========================================== */
+
+#touch-controls {
+    width: min(500px, 100%);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 14px;
+
+    padding: 0 12px;
+}
+
+.dpad {
+    display: flex;
+
+    gap: 12px;
+}
+
+/* ==========================================
+   CONTROL BUTTON
+   ========================================== */
+
+.ctrl-btn {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Press Start 2P', monospace;
+
+    font-size: 17px;
+
+    color: #39ff6a;
+
+    background: rgba(57, 255, 106, 0.05);
+
+    border: 2px solid #39ff6a;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    touch-action: none;
+
+    text-shadow:
+        0 0 6px #39ff6a;
+
+    box-shadow:
+        0 0 8px rgba(57, 255, 106, 0.45);
+
+    transition:
+        background 0.08s,
+        color 0.08s,
+        transform 0.08s;
+}
+
+.ctrl-btn:active {
+    background: #39ff6a;
+
+    color: #000;
+
+    transform: scale(0.94);
+
+    text-shadow: none;
+}
+
+/* ==========================================
+   FIRE BUTTON
+   ========================================== */
+
+.fire-btn {
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+
+    color: #ff2e5b;
+
+    background: rgba(255, 46, 91, 0.04);
+
+    border-color: #ff2e5b;
+
+    font-size: 8px;
+
+    text-shadow:
+        0 0 6px #ff2e5b;
+
+    box-shadow:
+        0 0 10px rgba(255, 46, 91, 0.5);
+}
+
+.fire-btn:active {
+    background: #ff2e5b;
+
+    color: #000;
+
+    text-shadow: none;
+}
+
+/* ==========================================
+   MOBILE HELP
+   ========================================== */
+
+#mobile-help {
+    margin-top: 10px;
+
+    color: #3d6b4a;
+
+    font-size: 6px;
+
+    text-align: center;
+
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   SMALL SCREEN
+   ========================================== */
+
+@media (max-width: 400px) {
+
+    #game-wrapper {
+        padding: 5px;
+    }
+
+    #hud {
+        min-height: 40px;
+
+        padding: 7px 8px;
+
+        font-size: 7px;
+
+        gap: 4px;
+    }
+
+    #overlay {
+        top: 40px;
+
+        height: calc(100% - 40px);
+
+        padding: 20px;
+    }
+
+    #overlay-text {
+        font-size: 8px;
+    }
+
+    .ctrl-btn {
+        width: 50px;
+        height: 50px;
+
+        font-size: 15px;
+    }
+
+    .fire-btn {
+        width: 62px;
+        height: 62px;
+    }
+
+    #touch-controls {
+        margin-top: 10px;
+
+        padding: 0 8px;
+    }
+
+    .dpad {
+        gap: 8px;
+    }
+
+    #mobile-help {
+        display: none;
+    }
+}
+
+/* ==========================================
+   LANDSCAPE MOBILE
+   ========================================== */
+
+@media (max-height: 650px) {
+
+    #game-wrapper {
+        padding: 4px;
+    }
+
+    #touch-controls {
+        margin-top: 5px;
+    }
+
+    .ctrl-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .fire-btn {
+        width: 52px;
+        height: 52px;
+    }
+
+    #mobile-help {
+        display: none;
+    }
+}
